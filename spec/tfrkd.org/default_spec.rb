@@ -14,6 +14,10 @@ describe 'nginx' do
     it { should be_listening }
   end
 
+  describe port(443) do
+    it { should be_listening }
+  end
+
   describe file('/etc/nginx/sites-enabled/default') do
     it { should exist }
   end
@@ -106,6 +110,12 @@ describe 'misc' do
   describe file('/etc/sudoers') do
     its(:content) do
       should match(%r|circleci ALL=\(ALL:ALL\) NOPASSWD: /usr/bin/supervisorctl|)
+    end
+  end
+
+  describe file('/etc/cron.d/letsencrypt') do
+    its(:content) do
+      should match(%r|^10 5 1 1-12/2 \* root /home/furu/letsencrypt/letsencrypt-auto certonly --webroot -w /var/www/html -d tfrkd\.org -w /home/furu/www/nakiroku -d nakiroku\.tfrkd\.org && service nginx reload|)
     end
   end
 end
