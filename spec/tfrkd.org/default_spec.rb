@@ -115,7 +115,7 @@ describe 'misc' do
 
   describe file('/etc/cron.d/letsencrypt') do
     its(:content) do
-      should match(%r|^10 5 1 1-12/2 \* root /home/furu/letsencrypt/letsencrypt-auto certonly --webroot -w /var/www/html -d tfrkd\.org -w /home/furu/www/nakiroku -d nakiroku\.tfrkd\.org && service nginx reload|)
+      should match(%r|^10 5 1 1-12/2 \* root /home/furu/letsencrypt/letsencrypt-auto certonly --webroot -w /var/www/html -d tfrkd\.org -w /home/furu/www/nakiroku -d nakiroku\.tfrkd\.org --renew-by-default && service nginx reload|)
     end
   end
 end
